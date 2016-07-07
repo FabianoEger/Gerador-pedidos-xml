@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0"
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm 
+  http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+     
+    <entity class ="geradorpedidos.model.Cliente">
+        <attributes>
+            <id name="idCliente">
+                <column name="idcliente"/>
+                <generated-value/>
+            </id>
+    
+            <basic name ="nomeCliente">
+                <column name="nomecliente"/>
+            </basic>
+    
+            <basic name ="email"> </basic>
+            
+            <one-to-many name="pedidos" target-entity="geradorpedidos.model.Pedido" mapped-by="cliente"/>
+                
+        </attributes>
+    </entity>
+    
+    <entity class ="geradorpedidos.model.Item">
+        <attributes>
+            <id name="idItem">
+                <column name="iditem"/>
+                <generated-value/>
+            </id>
+            
+            <basic name ="quantidade"> </basic>
+              
+            <many-to-one name ="pedido">
+                <join-column name ="idpedido"/>
+            </many-to-one>
+            
+             <many-to-one name ="produto">
+                <join-column name ="idproduto"/>
+            </many-to-one>
+            
+        </attributes>
+    </entity>
+    
+    <entity class ="geradorpedidos.model.Pedido">
+        <attributes>
+            <id name="idPedido">
+                <column name="idpedido"/>
+                <generated-value/>
+            </id>
+    
+            <basic name ="valorPedido">
+                <column name="valorpedido"/>
+            </basic>
+    
+            <basic name ="dataPedido"> 
+                <column name="datapedido"/>
+            </basic>
+            
+            <many-to-one name ="cliente">
+                <join-column name ="idcliente"/>
+            </many-to-one>
+            
+            <one-to-many name="itens" target-entity="geradorpedidos.model.Item" mapped-by="pedido"/>
+            
+        </attributes>
+    </entity>
+    
+    <entity class ="geradorpedidos.model.Produto">
+        <attributes>
+            <id name="idProduto">
+                <column name="idproduto"/>
+                <generated-value/>
+            </id>
+    
+            <basic name ="nomeProduto">
+                <column name="nomeproduto"/>
+            </basic>
+    
+            <basic name ="valorProduto">
+                <column name="valorproduto"/>
+            </basic>
+            
+            <one-to-many name="itens" target-entity="geradorpedidos.model.Item" mapped-by="produto"/>
+          
+        </attributes>
+    </entity>
+
+</entity-mappings>
